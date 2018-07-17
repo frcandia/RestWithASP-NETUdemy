@@ -12,12 +12,26 @@ namespace RestWithASPNETUdemy.Controllers
     public class CalculatorController : ControllerBase
     {
         // GET api/calculator/5/5
-        [HttpGet("{firstNumber}/{secondNumber}")]
+        [HttpGet("sum/{firstNumber}/{secondNumber}")]
         public ActionResult<string> Sum(string firstNumber, string secondNumber)
         {
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
                 var sum = ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber);
+
+                return Ok(sum.ToString(CultureInfo.InvariantCulture));
+            }
+
+            return BadRequest("Invalid input");
+        }
+
+        // GET api/calculator/5/5
+        [HttpGet("subtraction/{firstNumber}/{secondNumber}")]
+        public ActionResult<string> Subtraction(string firstNumber, string secondNumber)
+        {
+            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
+            {
+                var sum = ConvertToDecimal(firstNumber) - ConvertToDecimal(secondNumber);
 
                 return Ok(sum.ToString(CultureInfo.InvariantCulture));
             }
