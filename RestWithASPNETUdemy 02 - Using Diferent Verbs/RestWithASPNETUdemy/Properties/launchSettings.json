@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/serverInfo",
+      "launchUrl": "api/v2/serverInfo",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "RestWithASPNETUdemy": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/serverInfo",
+      "launchUrl": "api/v2/serverInfo",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

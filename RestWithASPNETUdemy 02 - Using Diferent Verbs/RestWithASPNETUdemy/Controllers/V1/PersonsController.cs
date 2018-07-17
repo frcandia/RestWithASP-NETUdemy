@@ -6,9 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using RestWithASPNETUdemy.Model;
 using RestWithASPNETUdemy.Services.Implementations;
 
-namespace RestWithASPNETUdemy.Controllers
+namespace RestWithASPNETUdemy.Controllers.V1
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1")]
     [ApiController]
     public class PersonsController : ControllerBase
     {

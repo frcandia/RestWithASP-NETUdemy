@@ -6,9 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using RestWithASPNETUdemy.Model;
 using RestWithASPNETUdemy.Services.Implementations;
 
-namespace RestWithASPNETUdemy.Controllers
+namespace RestWithASPNETUdemy.Controllers.V2
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("2")]
     [ApiController]
     public class ServerInfoController : ControllerBase
     {
@@ -16,7 +17,7 @@ namespace RestWithASPNETUdemy.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var result = new { Active = true };
+            var result = new { Active = true, ServerIp = "localhost" };
             return Ok(result);
         }
     }
