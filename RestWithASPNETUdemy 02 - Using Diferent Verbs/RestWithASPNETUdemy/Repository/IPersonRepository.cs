@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using RestWithASPNETUdemy.Model;
 
-namespace RestWithASPNETUdemy.Services.Implementations
+namespace RestWithASPNETUdemy.Repository
 {
-    public interface IPersonService
+    public interface IPersonRepository
     {
         Person Create(Person person);
         Person GetById(long id);
         Person Update(Person person);
         List<Person> GetAll();
         void Delete(long id);
+
+        bool Exists(long? id);
     }
 }

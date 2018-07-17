@@ -1,0 +1,2 @@
+insert into persons (FirstName, LastName, Address, Gender) values ('Rafael', 'Candia', 'Juiz de Fora', 'Male');
+insert into persons (FirstName, LastName, Address, Gender) values ('Raquel', 'Neves Candia', 'Juiz de Fora', 'Female');

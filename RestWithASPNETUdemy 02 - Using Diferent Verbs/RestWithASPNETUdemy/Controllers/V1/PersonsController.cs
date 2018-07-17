@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RestWithASPNETUdemy.Model;
-using RestWithASPNETUdemy.Services.Implementations;
+using RestWithASPNETUdemy.Business;
 
 namespace RestWithASPNETUdemy.Controllers.V1
 {
@@ -13,25 +13,25 @@ namespace RestWithASPNETUdemy.Controllers.V1
     [ApiController]
     public class PersonsController : ControllerBase
     {
-        private readonly IPersonService _personService;
+        private readonly IPersonBusiness _personBusiness;
 
-        public PersonsController(IPersonService personService)
+        public PersonsController(IPersonBusiness personBusiness)
         {
-            _personService = personService;
+            _personBusiness = personBusiness;
         }
 
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<Person>> Get()
         {
-            return Ok(_personService.GetAll());
+            return Ok(_personBusiness.GetAll());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<Person> Get(long id)
         {
-            var person = _personService.GetById(id);
+            var person = _personBusiness.GetById(id);
 
             if (person == null)
                 return NotFound();
@@ -46,7 +46,7 @@ namespace RestWithASPNETUdemy.Controllers.V1
             if (person == null)
                 return BadRequest();
 
-            return new ObjectResult(_personService.Create(person));
+            return new ObjectResult(_personBusiness.Create(person));
         }
 
         // PUT api/values/5
@@ -56,14 +56,19 @@ namespace RestWithASPNETUdemy.Controllers.V1
             if (person == null)
                 return BadRequest();
 
-            return new ObjectResult(_personService.Update(person));
+            var updatedPerson = _personBusiness.Update(person);
+
+            if (updatedPerson == null)
+                return BadRequest();
+
+            return new ObjectResult(updatedPerson);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            _personService.Delete(id);
+            _personBusiness.Delete(id);
 
             return NoContent();
         }

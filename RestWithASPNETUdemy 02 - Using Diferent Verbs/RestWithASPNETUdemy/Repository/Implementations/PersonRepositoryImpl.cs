@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using RestWithASPNETUdemy.Model;
 using RestWithASPNETUdemy.Model.Context;
 
-namespace RestWithASPNETUdemy.Services.Implementations
+namespace RestWithASPNETUdemy.Repository.Implementations
 {
-    public class PersonServiceImpl : IPersonService
+    public class PersonRepositoryImpl : IPersonRepository
     {
         private readonly MySQLContext _context;
 
-        public PersonServiceImpl(MySQLContext context)
+        public PersonRepositoryImpl(MySQLContext context)
         {
             _context = context;
         }
@@ -40,8 +38,8 @@ namespace RestWithASPNETUdemy.Services.Implementations
 
         public Person Update(Person person)
         {
-            if (!Exist(person.Id))
-                return new Person();
+            if (!Exists(person.Id))
+                return null;
 
             var result = _context.Persons.SingleOrDefault(p => p.Id == person.Id);
 
@@ -61,7 +59,7 @@ namespace RestWithASPNETUdemy.Services.Implementations
             return result;
         }
 
-        private bool Exist(long? id)
+        public bool Exists(long? id)
         {
             return _context.Persons.Any(p => p.Id == id);
         }
