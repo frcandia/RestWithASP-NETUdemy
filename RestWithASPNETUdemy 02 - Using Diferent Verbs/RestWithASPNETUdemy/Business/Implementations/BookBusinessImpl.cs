@@ -10,39 +10,39 @@ using RestWithASPNETUdemy.Repository.Generic;
 
 namespace RestWithASPNETUdemy.Business.Implementations
 {
-    public class PersonBusinessImpl : IPersonBusiness
+    public class BookBusinessImpl : IBookBusiness
     {
-        private readonly IRepository<Person> _repository;
-        private readonly PersonConverter _converter;
+        private readonly IRepository<Book> _repository;
+        private readonly BookConverter _converter;
 
-        public PersonBusinessImpl(IRepository<Person> repository)
+        public BookBusinessImpl(IRepository<Book> repository)
         {
             _repository = repository;
-            _converter = new PersonConverter();
+            _converter = new BookConverter();
         }
 
-        public PersonVO Create(PersonVO person)
+        public BookVO Create(BookVO book)
         {
-            var entity = _converter.Parse(person);
+            var entity = _converter.Parse(book);
             entity = _repository.Create(entity);
 
             return _converter.Parse(entity);
         }
 
-        public PersonVO GetById(long id)
+        public BookVO GetById(long id)
         {
             return _converter.Parse(_repository.GetById(id));
         }
 
-        public PersonVO Update(PersonVO person)
+        public BookVO Update(BookVO book)
         {
-            var entity = _converter.Parse(person);
+            var entity = _converter.Parse(book);
             entity = _repository.Update(entity);
 
             return _converter.Parse(entity);
         }
 
-        public List<PersonVO> GetAll()
+        public List<BookVO> GetAll()
         {
             return _converter.ParseList(_repository.GetAll());
         }
@@ -53,4 +53,3 @@ namespace RestWithASPNETUdemy.Business.Implementations
         }
     }
 }
-

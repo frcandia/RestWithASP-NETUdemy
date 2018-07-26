@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RestWithASPNETUdemy.Model;
 using RestWithASPNETUdemy.Business;
+using RestWithASPNETUdemy.Data.VO;
 
 namespace RestWithASPNETUdemy.Controllers.V1
 {
@@ -22,14 +23,14 @@ namespace RestWithASPNETUdemy.Controllers.V1
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Person>> Get()
+        public ActionResult<IEnumerable<PersonVO>> Get()
         {
             return Ok(_personBusiness.GetAll());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<Person> Get(long id)
+        public ActionResult<PersonVO> Get(long id)
         {
             var person = _personBusiness.GetById(id);
 
@@ -41,7 +42,7 @@ namespace RestWithASPNETUdemy.Controllers.V1
 
         // POST api/values
         [HttpPost]
-        public ActionResult<Person> Post([FromBody] Person person)
+        public ActionResult<PersonVO> Post([FromBody] PersonVO person)
         {
             if (person == null)
                 return BadRequest();
@@ -51,7 +52,7 @@ namespace RestWithASPNETUdemy.Controllers.V1
 
         // PUT api/values/5
         [HttpPut]
-        public ActionResult<Person> Put([FromBody] Person person)
+        public ActionResult<PersonVO> Put([FromBody] PersonVO person)
         {
             if (person == null)
                 return BadRequest();

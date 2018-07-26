@@ -4,12 +4,12 @@ using RestWithASPNETUdemy.Model;
 
 namespace RestWithASPNETUdemy.Business
 {
-    public interface IPersonBusiness
+    public interface IBookBusiness
     {
-        PersonVO Create(PersonVO person);
-        PersonVO GetById(long id);
-        PersonVO Update(PersonVO person);
-        List<PersonVO> GetAll();
+        BookVO Create(BookVO book);
+        BookVO GetById(long id);
+        BookVO Update(BookVO book);
+        List<BookVO> GetAll();
         void Delete(long id);
     }
 }
