@@ -14,9 +14,11 @@ using Microsoft.Net.Http.Headers;
 using RestWithASPNETUdemy.Model.Context;
 using RestWithASPNETUdemy.Business;
 using RestWithASPNETUdemy.Business.Implementations;
+using RestWithASPNETUdemy.Hypermedia;
 using RestWithASPNETUdemy.Repository;
 using RestWithASPNETUdemy.Repository.Generic;
 using RestWithASPNETUdemy.Repository.Implementations;
+using Tapioca.HATEOAS;
 
 namespace RestWithASPNETUdemy
 {
@@ -69,6 +71,11 @@ namespace RestWithASPNETUdemy
             .AddXmlSerializerFormatters()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            var filterOptions = new HyperMediaFilterOptions();
+            filterOptions.ObjectContentResponseEnricherList.Add(new PersonEnricher());
+
+            services.AddSingleton(filterOptions);
+
             services.AddApiVersioning();
 
             //injeção de dependencia
@@ -87,7 +94,12 @@ namespace RestWithASPNETUdemy
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "DefaultApi",
+                    template: "{controller=Values}/{id?}");
+            });
         }
     }
 }

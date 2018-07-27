@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using RestWithASPNETUdemy.Model;
 using RestWithASPNETUdemy.Business;
 using RestWithASPNETUdemy.Data.VO;
+using Tapioca.HATEOAS;
 
 namespace RestWithASPNETUdemy.Controllers.V1
 {
@@ -23,6 +24,7 @@ namespace RestWithASPNETUdemy.Controllers.V1
 
         // GET api/values
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public ActionResult<IEnumerable<PersonVO>> Get()
         {
             return Ok(_personBusiness.GetAll());
@@ -30,6 +32,7 @@ namespace RestWithASPNETUdemy.Controllers.V1
 
         // GET api/values/5
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public ActionResult<PersonVO> Get(long id)
         {
             var person = _personBusiness.GetById(id);
@@ -42,6 +45,7 @@ namespace RestWithASPNETUdemy.Controllers.V1
 
         // POST api/values
         [HttpPost]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public ActionResult<PersonVO> Post([FromBody] PersonVO person)
         {
             if (person == null)
@@ -52,6 +56,7 @@ namespace RestWithASPNETUdemy.Controllers.V1
 
         // PUT api/values/5
         [HttpPut]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public ActionResult<PersonVO> Put([FromBody] PersonVO person)
         {
             if (person == null)
@@ -67,6 +72,7 @@ namespace RestWithASPNETUdemy.Controllers.V1
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Delete(long id)
         {
             _personBusiness.Delete(id);
