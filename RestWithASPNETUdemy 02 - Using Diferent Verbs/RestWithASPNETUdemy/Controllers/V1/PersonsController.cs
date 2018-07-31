@@ -4,10 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestWithASPNETUdemy.Model;
 using RestWithASPNETUdemy.Business;
 using RestWithASPNETUdemy.Data.VO;
 using Tapioca.HATEOAS;
+using System.IO;
+using System.Text;
 
 namespace RestWithASPNETUdemy.Controllers.V1
 {
@@ -30,6 +34,33 @@ namespace RestWithASPNETUdemy.Controllers.V1
         public ActionResult<IEnumerable<PersonVO>> Get()
         {
             return Ok(_personBusiness.GetAll());
+        }
+
+        // GET api/values
+        [HttpGet("find-by-name")]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public ActionResult<IEnumerable<PersonVO>> GetByName([FromQuery] string firstName, [FromQuery] string lastName)
+        {
+            /*var test = new
+            {
+                name = "rick",
+                company = "Westwind",
+                entered = DateTime.UtcNow,
+                porta = new 
+                {
+                    caminho = "rua",
+                    numero = 123
+                }
+            };
+
+            var json = JsonConvert.SerializeObject(test);
+            Console.WriteLine(json); // single line JSON string
+
+            var jsonFormatted = JToken.Parse(json).ToString(Formatting.Indented);
+            System.IO.File.WriteAllText(@"C:/Temp/teste.txt", jsonFormatted, Encoding.Default);
+            Console.WriteLine(jsonFormatted);*/
+
+            return Ok(_personBusiness.FindByName(firstName, lastName));
         }
 
         // GET api/values/5

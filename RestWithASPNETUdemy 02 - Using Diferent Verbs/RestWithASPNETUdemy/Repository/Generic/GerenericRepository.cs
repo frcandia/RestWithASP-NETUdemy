@@ -10,13 +10,13 @@ namespace RestWithASPNETUdemy.Repository.Generic
 {
     public class GerenericRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly MySQLContext _context;
+        protected readonly MySQLContext Context;
         private readonly DbSet<T> _dataset;
 
         public GerenericRepository(MySQLContext context)
         {
-            _context = context;
-            _dataset = _context.Set<T>();
+            Context = context;
+            _dataset = Context.Set<T>();
         }
 
         public T Create(T item)
@@ -24,7 +24,7 @@ namespace RestWithASPNETUdemy.Repository.Generic
             try
             {
                 _dataset.Add(item);
-                _context.SaveChanges();
+                Context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@ namespace RestWithASPNETUdemy.Repository.Generic
                 if (result != null)
                     _dataset.Remove(result);
 
-                _context.SaveChanges();
+                Context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -78,9 +78,9 @@ namespace RestWithASPNETUdemy.Repository.Generic
             try
             {
                 // ReSharper disable once AssignNullToNotNullAttribute
-                _context.Entry(result).CurrentValues.SetValues(item);
+                Context.Entry(result).CurrentValues.SetValues(item);
 
-                _context.SaveChanges();
+                Context.SaveChanges();
             }
             catch (Exception ex)
             {

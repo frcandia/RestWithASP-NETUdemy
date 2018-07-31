@@ -12,10 +12,10 @@ namespace RestWithASPNETUdemy.Business.Implementations
 {
     public class PersonBusinessImpl : IPersonBusiness
     {
-        private readonly IRepository<Person> _repository;
+        private readonly IPersonRepository _repository;
         private readonly PersonConverter _converter;
 
-        public PersonBusinessImpl(IRepository<Person> repository)
+        public PersonBusinessImpl(IPersonRepository repository)
         {
             _repository = repository;
             _converter = new PersonConverter();
@@ -50,6 +50,11 @@ namespace RestWithASPNETUdemy.Business.Implementations
         public void Delete(long id)
         {
             _repository.Delete(id);
+        }
+
+        public List<PersonVO> FindByName(string firstName, string lastName)
+        {
+            return _converter.ParseList(_repository.FindByName(firstName, lastName));
         }
     }
 }
