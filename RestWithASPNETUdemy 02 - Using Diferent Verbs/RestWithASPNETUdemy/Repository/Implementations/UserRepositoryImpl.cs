@@ -6,20 +6,20 @@ using RestWithASPNETUdemy.Model.Context;
 
 namespace RestWithASPNETUdemy.Repository.Implementations
 {
-    public class PersonRepositoryImpl : IPersonRepository
+    public class UserRepositoryImpl : IUserRepository
     {
         private readonly MySQLContext _context;
 
-        public PersonRepositoryImpl(MySQLContext context)
+        public UserRepositoryImpl(MySQLContext context)
         {
             _context = context;
         }
 
-        public Person Create(Person person)
+        public User Create(User user)
         {
             try
             {
-                _context.Add(person);
+                _context.Add(user);
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -28,25 +28,25 @@ namespace RestWithASPNETUdemy.Repository.Implementations
                 throw ex;
             }
 
-            return person;
+            return user;
         }
 
-        public Person GetById(long id)
+        public User GetById(long id)
         {
-            return _context.Persons.SingleOrDefault(p => p.Id == id);
+            return _context.Users.SingleOrDefault(p => p.Id == id);
         }
 
-        public Person Update(Person person)
+        public User Update(User user)
         {
-            if (!Exists(person.Id))
+            if (!Exists(user.Id))
                 return null;
 
-            var result = _context.Persons.SingleOrDefault(p => p.Id == person.Id);
+            var result = _context.Users.SingleOrDefault(p => p.Id == user.Id);
 
             try
             {
                 // ReSharper disable once AssignNullToNotNullAttribute
-                _context.Entry(result).CurrentValues.SetValues(person);
+                _context.Entry(result).CurrentValues.SetValues(user);
 
                 _context.SaveChanges();
             }
@@ -61,22 +61,22 @@ namespace RestWithASPNETUdemy.Repository.Implementations
 
         public bool Exists(long? id)
         {
-            return _context.Persons.Any(p => p.Id == id);
+            return _context.Users.Any(p => p.Id == id);
         }
 
-        public List<Person> GetAll()
+        public List<User> GetAll()
         {
-            return _context.Persons.ToList();
+            return _context.Users.ToList();
         }
 
         public void Delete(long id)
         {
-            var result = _context.Persons.SingleOrDefault(p => p.Id == id);
+            var result = _context.Users.SingleOrDefault(p => p.Id == id);
 
             try
             {
                 if (result != null)
-                    _context.Persons.Remove(result);
+                    _context.Users.Remove(result);
 
                 _context.SaveChanges();
             }
@@ -85,6 +85,11 @@ namespace RestWithASPNETUdemy.Repository.Implementations
                 // ReSharper disable once PossibleIntendedRethrow
                 throw ex;
             }
+        }
+
+        public User FindByLogin(string login)
+        {
+            return _context.Users.SingleOrDefault(w => w.Login.Equals(login));
         }
     }
 }

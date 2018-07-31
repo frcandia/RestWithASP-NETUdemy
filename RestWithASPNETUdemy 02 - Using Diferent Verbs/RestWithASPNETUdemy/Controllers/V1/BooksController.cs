@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestWithASPNETUdemy.Business;
 using RestWithASPNETUdemy.Data.VO;
@@ -12,6 +13,7 @@ namespace RestWithASPNETUdemy.Controllers.V1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
     [ApiController]
+    [Authorize("Bearer")]
     public class BooksController : ControllerBase
     {
         private readonly IBookBusiness _bookBusiness;
