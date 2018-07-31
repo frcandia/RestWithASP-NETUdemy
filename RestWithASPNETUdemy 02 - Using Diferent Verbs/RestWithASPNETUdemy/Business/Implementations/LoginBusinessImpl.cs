@@ -20,6 +20,7 @@ namespace RestWithASPNETUdemy.Business.Implementations
         private readonly IUserRepository _repository;
         private readonly SigningConfigurations _signingConfigurations;
         private readonly TokenConfigurations _tokenConfigurations;
+        private readonly UserConverter _userConverter;
 
         public LoginBusinessImpl(IUserRepository repository, 
             SigningConfigurations signingConfigurations, TokenConfigurations tokenConfigurations)
@@ -27,15 +28,16 @@ namespace RestWithASPNETUdemy.Business.Implementations
             _repository = repository;
             _signingConfigurations = signingConfigurations;
             _tokenConfigurations = tokenConfigurations;
+            _userConverter = new UserConverter();
         }
 
-        public object FindByLogin(User user)
+        public object FindByLogin(UserVO user)
         {
             var credentialsIsValid = false;
 
             if (user != null && !string.IsNullOrEmpty(user.Login))
             {
-                var baseUser = _repository.FindByLogin(user.Login);
+                var baseUser =  _userConverter.Parse(_repository.FindByLogin(user.Login));
                 credentialsIsValid = baseUser != null && baseUser.AccessKey == user.AccessKey;
             }
 

@@ -14,6 +14,7 @@ namespace RestWithASPNETUdemy.Controllers.V1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
     [ApiController]
+    [Authorize("Bearer")]
     public class LoginController : ControllerBase
     {
         private readonly ILoginBusiness _loginBusiness;
@@ -26,7 +27,7 @@ namespace RestWithASPNETUdemy.Controllers.V1
         // POST api/values
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Post([FromBody] User user)
+        public IActionResult Post([FromBody] UserVO user)
         {
             if (user == null)
                 return BadRequest();
